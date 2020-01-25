@@ -129,7 +129,7 @@ function clearImageData() {
 }
 
 function drawGrid() {
-    ctx.strokeStyle = '#000'
+    ctx.strokeStyle = '#fff'
     ctx.lineWidth = 2
     ctx.beginPath()
     ctx.moveTo(width / 2, 0)
