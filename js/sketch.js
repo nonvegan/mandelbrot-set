@@ -107,12 +107,18 @@ function drawImage() {
     for (let x = 0; x < width; x++) {
         for (let y = 0; y < height; y++) {
             let i = (x + y * width) * 4
-            if (Mandelbrot(x, y)) {
-                newImageData.data[i] = hexToRgb('f92672').getRed()
-                newImageData.data[i + 1] = hexToRgb('f92672').getGreen()
-                newImageData.data[i + 2] = hexToRgb('f92672').getBlue()
+            let c = Mandelbrot(x, y)
+            if (c) {
+                newImageData.data[i] = mapValue(c, 0, 1, 249, 255)
+                newImageData.data[i + 1] = mapValue(c, 0, 1, 38, 255)
+                newImageData.data[i + 2] = mapValue(c, 0, 1, 114, 255)
                 newImageData.data[i + 3] = 255
+            } else {
+
+                newImageData.data[i + 3] = 0
             }
+
+
         }
     }
     ctx.putImageData(newImageData, 0, 0)
@@ -123,7 +129,7 @@ function clearImageData() {
 }
 
 function drawGrid() {
-    ctx.strokeStyle = '#fff'
+    ctx.strokeStyle = '#000'
     ctx.lineWidth = 2
     ctx.beginPath()
     ctx.moveTo(width / 2, 0)
@@ -160,8 +166,5 @@ function Mandelbrot(x, y) {
             break
         n++
     }
-    if (n == z) {
-        return true
-    }
-    return false
+    return n / z
 }
